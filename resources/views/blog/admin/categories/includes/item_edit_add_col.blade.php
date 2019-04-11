@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="title">Создание</label>
+                        <label for="title">Создано</label>
                         <input type="text" value="{{ $item->created_at }}" class="form-control" disabled>
                     </div>
                     <div class="form-group">
@@ -43,6 +43,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div><br>
 @endif
