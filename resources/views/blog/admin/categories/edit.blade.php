@@ -3,10 +3,24 @@
 @section('content')
     @php /** @var \App\Models\BlogCategory $item */ @endphp
     <form method="POST" action="{{ route('blog.admin.categories.update', $item->id) }}">
-        @method('PATH')
+        @method('PATCH')
         @csrf
         <div class="container">
             @php /**  \Illuminate\Support\ViewErrorBag $errors */ @endphp
+            @if($errors->any())
+                <div class="row justify-content-center">
+                    <div class="col-md-11">
+                        <div class="alter alert-danger" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                            {{ $errors->first() }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if(session('success'))...@endif
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     @include('blog.admin.categories.includes.item_edit_main_col')

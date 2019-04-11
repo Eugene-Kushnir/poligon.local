@@ -75,7 +75,9 @@ class CategoryController extends BaseController
 		}
 
 		$data = $request->all();
-		$result = $item->fill($data)->serve();
+		$result = $item
+			->fill($data)
+			->save();
 
 		if($result) {
 			return redirect()
