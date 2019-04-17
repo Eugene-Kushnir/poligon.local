@@ -42,15 +42,15 @@ class BlogPostRepository extends CoreRepository
 			->select( $columns )
 			->orderBy( 'id', 'DESC' )
 //			->with(['category', 'user'])
-				->with([
-					 // Можно так
-					'category' => function($query) {
-					$query->select(['id', 'title']);
-					},
-					 // или так
-					 'user:id,name',
-				])
-			->paginate(25);
+			->with( [
+				// Можно так
+				'category' => function ($query) {
+					$query->select( ['id', 'title'] );
+				},
+				// или так
+				'user:id,name',
+			] )
+			->paginate( 25 );
 
 
 		return $result;
