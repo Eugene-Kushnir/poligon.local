@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 
+use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
@@ -14,19 +15,26 @@ class PostController extends BaseController
 	private $blogPostRepository;
 
 	/**
+	 * @var BlogCategoryRepository
+	 */
+	private $blogCategoryRepository;
+
+	/**
 	 * PostController constructor
 	 */
 	public function __construct() {
 		parent::__construct();
 
 		$this->blogPostRepository = app(BlogPostRepository::class);
+		$this->blogCategoryRepository= app(BlogCategoryRepository::class);
 	}
 
 	/**
-     *
-     *
-     * @return \Illuminate\Http\Response
-     */
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+
     public function index()
     {
     	$paginator = $this->blogPostRepository->getAllWithPaginate();
@@ -74,7 +82,16 @@ class PostController extends BaseController
      */
     public function edit($id)
     {
-		dd(__METHOD__,$id);
+		$item = $this->blogPostRepository->getEdit($id);
+		if(empty($item)) {
+			abort(404);
+		}
+
+		$categoryList = $this->blogCategoryRepository->getForComboBox();
+
+		return view('blog.admin.posts.edit',
+			compact('item', 'categoryList'));
+
     }
 
     /**
@@ -97,6 +114,6 @@ class PostController extends BaseController
      */
     public function destroy($id)
     {
-		dd(__METHOD__, $id, \request()->all());
+		dd(__METHOD__, $id, request()->all());
     }
 }
