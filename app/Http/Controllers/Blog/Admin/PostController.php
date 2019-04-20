@@ -8,7 +8,6 @@ use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 class PostController extends BaseController
 {
 	/**
@@ -112,6 +111,8 @@ class PostController extends BaseController
 				->withErrors(['msg' => "Запись id=[{$id}] не найдена"]);
 		}
 		$data = $request->all();
+
+		// Ушло в обсервер
 		if (empty($data['slug'])) {
 			$data['slug'] = str_slug($data['title']);
 		}
