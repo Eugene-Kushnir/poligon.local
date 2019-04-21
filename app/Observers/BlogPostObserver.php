@@ -80,13 +80,24 @@ class BlogPostObserver
 		$blogPost->user_id = auth()->id() ?? BlogPost::UNKNOWN_USER;
 
 	}
+
+	/**
+	 * @param  \App\Models\BlogPost  $blogPost
+	 * @return void
+	 */
+	public function deleting(BlogPost $blogPost)
+	{
+		//dd(__METHOD__,$blogPost);
+		return true;
+	}
+
     /**
      * @param  \App\Models\BlogPost  $blogPost
      * @return void
      */
     public function deleted(BlogPost $blogPost)
     {
-        //
+        // 	dd(__METHOD__,$blogPost);
     }
 
     /**
